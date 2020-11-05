@@ -1,19 +1,16 @@
-import java.awt.EventQueue;
-
-import javax.swing.JFrame;
-import javax.swing.JDesktopPane;
 import java.awt.BorderLayout;
-import javax.swing.JTextField;
-import javax.swing.JScrollPane;
-import javax.swing.SwingConstants;
-import javax.swing.ScrollPaneConstants;
 import java.awt.Color;
+import java.awt.EventQueue;
 import java.awt.SystemColor;
-import javax.swing.JTextArea;
-import javax.swing.JLabel;
+
+import javax.swing.JDesktopPane;
+import javax.swing.JFrame;
 import javax.swing.JList;
-import javax.swing.ListSelectionModel;
-import javax.swing.ImageIcon;
+import javax.swing.JScrollPane;
+import javax.swing.JTextArea;
+import javax.swing.JTextField;
+import javax.swing.ScrollPaneConstants;
+import javax.swing.SwingConstants;
 
 public class Interface {
 
@@ -22,6 +19,27 @@ public class Interface {
 	private JTextField textFieldcated;
 
 	public static void main(String[] args) {
+		
+		//MongoHandler myMongo = new MongoHandler();
+		//ArrayList<String> s = new ArrayList<String>();
+		//ArrayList<String> s2 = new ArrayList<String>();
+		//s.add("nume");
+		//s.add("peste");
+		//s.add("culoare");
+		//s.add("roz");
+		//s.add("nume");
+		//s.add("peste");
+		//s2.add("maro");
+		//s2.add("verde");
+		//Document doc = new Document("culoare", "verde");
+		//myMongo.AddItemToCollection(s, "prostii");
+		//System.out.println(myMongo.GetDBCollection("prostii"));
+		//MongoOperation dd = MongoOperation.SET;
+		//myMongo.UpdateItemFromCollection(s, doc, dd, "prostii");
+		
+		//myMongo.RemoveItemFromCollection("nume", "peste", "prostii");
+		
+		
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
