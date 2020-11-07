@@ -9,14 +9,20 @@ import javax.swing.JList;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
+import javax.swing.ListModel;
 import javax.swing.ScrollPaneConstants;
 import javax.swing.SwingConstants;
+import java.util.ArrayList;
+import actors.Editor;
+
 
 public class Interface {
 
 	private JFrame frame;
 	private JTextField txtNewsFeed;
 	private JTextField textFieldcated;
+	private JTextField txtY;
+	JList whatYouSubbed;
 
 	public static void main(String[] args) {
 		
@@ -39,6 +45,14 @@ public class Interface {
 		
 		//myMongo.RemoveItemFromCollection("nume", "peste", "prostii");
 		
+		Editor e1=new Editor("Marcel");
+		e1.subToNewsCatergory("divertisment");
+		e1.subToNewsCatergory("cacat");
+		e1.subToNewsCatergory("pisat");
+		e1.subToNewsCatergory("mazga");
+		e1.subToNewsCatergory("apa plata");
+		e1.subToNewsCatergory("cruce");
+		e1.subToNewsCatergory("merge");
 		
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
@@ -90,17 +104,25 @@ public class Interface {
 		textFieldcated.setColumns(10);
 		textFieldcated.setEditable(false);
 		
-		JTextArea txtrInformations = new JTextArea();
-		txtrInformations.setBackground(SystemColor.info);
-		txtrInformations.setText("Informations");
-		txtrInformations.setBounds(469, 332, 288, 204);
-		txtrInformations.setEditable(false);
-		desktopPane.add(txtrInformations);
+		//JList list = new JList();
+		//list.setBackground(SystemColor.control);
+		//list.setBounds(519, 46, 215, 226);
+		//desktopPane.add(list);
 		
-		JList list = new JList();
-		list.setBackground(SystemColor.control);
-		list.setBounds(519, 46, 215, 226);
-		desktopPane.add(list);
+		//whatYouSubbed = new JList(subscriptionCategoryList.toArray());
+	
+		//whatYouSubbed.setVisibleRowCount(3);
+		//whatYouSubbed.setBackground(SystemColor.controlShadow);
+		//whatYouSubbed.setBounds(535, 351, 160, 158);
+		//desktopPane.add(whatYouSubbed);
+		
+		txtY = new JTextField();
+		txtY.setBackground(SystemColor.info);
+		txtY.setHorizontalAlignment(SwingConstants.CENTER);
+		txtY.setText("You are subscribed to:");
+		txtY.setBounds(535, 329, 160, 20);
+		desktopPane.add(txtY);
+		txtY.setColumns(10);
 		
 		//JLabel lblNewLabel = new JLabel("");
 		//lblNewLabel.setIcon(new ImageIcon("C:\\Users\\Manu\\eclipse-workspace\\CEBP\\backg.png"));
