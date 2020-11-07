@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 public class Editor implements User  {
 private String name;
+private static String category;
 static ArrayList<String> subscriptionCategoryList = new ArrayList<String>();
 
 
@@ -26,5 +27,9 @@ static ArrayList<String> subscriptionCategoryList = new ArrayList<String>();
 	
 	public String getReaderName(String name) {
 		return this.name;
+	}
+	public void newsEdit()
+	{
+		// to be implemented
 	}
 }
