@@ -16,7 +16,7 @@ public class ServerRunner {
 	
 	public void Run() {
 		try {
-			ServerSocket serverSocket = new ServerSocket(10000);
+			ServerSocket serverSocket = new ServerSocket(5000);
 			
 			// server started and waiting for connections
 			while(true) {
@@ -30,6 +30,7 @@ public class ServerRunner {
 				// start the client handler (thread)
 				client.start();
 			}
+			
 		} catch(Exception e) {
 			e.printStackTrace();
 		}

@@ -105,6 +105,21 @@ public class MongoHandler {
 		return res;
 	}
 	
+	public JSONObject GetDBItem(String property, String value, String collection) {
+		JSONObject res = new JSONObject();
+		GetCollection(collection);
+		
+		try {
+			Document doc = databaseCollection.find(new Document(property, value)).first();
+			JsonWriterSettings writerSettings = JsonWriterSettings.builder().indent(true).build();
+			res = new JSONObject(doc.toJson(writerSettings));
+		} catch(Exception e) {
+			e.printStackTrace();
+		}
+		
+		return res;
+	}
+	
 	private void GetCollection(String collection) {
 		try {
 			databaseCollection = databaseClient.getDatabase("news").getCollection(collection);
@@ -113,7 +128,7 @@ public class MongoHandler {
 		}
 	}
 	
-	public Document CreateDocument(ArrayList<String> elements) {
+	private Document CreateDocument(ArrayList<String> elements) {
 		Document doc = new Document();
 		Iterator<String> it = elements.iterator();
 		String key = null, value = null;
@@ -137,16 +152,4 @@ public class MongoHandler {
 		
 		return doc;
 	}
-	
-	//public Document CreateDoc(JSONArray elements) {
-		//Document doc = new Document();
-		
-		//System.out.println(elements.length());
-		//for(int i=0; i < elements.length(); i++) {
-		//	System.out.println(elements.getJSONObject(i));
-		//}
-		
-		
-		//return doc;
-	//}
 }

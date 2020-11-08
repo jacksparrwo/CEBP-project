@@ -5,24 +5,28 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.net.Socket;
+import java.util.ArrayList;
 
 import org.apache.commons.io.IOUtils;
+import org.bson.Document;
+import org.json.JSONArray;
+import org.json.JSONObject;
 
 import actors.EditorActor;
 import actors.ReaderActor;
 import actors.User;
+import database.MongoHandler;
+import database.MongoOperation;
 
 
 class ClientHandler extends Thread {
 	
-	private Socket socket;
 	private InputStream input;
 	private OutputStream output;
 	private User currentUser;
+	private MongoHandler myMongo = new MongoHandler();
 	
-	public ClientHandler(Socket socket) {
-		this.socket = socket;
-		
+	public ClientHandler(Socket socket) {	
 		try {
 			input = new BufferedInputStream(socket.getInputStream());
 			output = socket.getOutputStream();
@@ -39,11 +43,13 @@ class ClientHandler extends Thread {
 			// waiting for editor or reader
 			while(true) {
 				String typeOfConnection = IOUtils.toString(input, "UTF-8");
+				JSONObject myJsonRes = new JSONObject(typeOfConnection);
+				String myRes = myJsonRes.getString("client");
 				
-				if("Editor" == typeOfConnection) {
+				if(myRes.equals("Editor")) {
 					currentUser = new EditorActor();
 					break;
-				} else if("Reader" == typeOfConnection) {
+				} else if(myRes.equals("Reader")) {
 					currentUser = new ReaderActor();
 					break;
 				} else {
@@ -52,12 +58,93 @@ class ClientHandler extends Thread {
 			}
 			
 			while(true) {
+				String rawInput = IOUtils.toString(input, "UTF-8");
+				JSONObject myJsonRes = new JSONObject(rawInput);
+				String action = myJsonRes.getString("action");
+				
+				if(action.equals("add")) {
+					DoAdd(myJsonRes);
+				} else if(action.equals("getelement")) {
+					DoGet(myJsonRes, "element");
+				} else if(action.equals("getdb")) {
+					DoGet(myJsonRes, "db");
+				} else if(action.equals("edit")) {
+					DoEdit(myJsonRes);
+				} else if(action.equals("remove")) {
+					DoRemove(myJsonRes);
+				} else if(action.equals("subscribe")) {
+					DoSubscribe(myJsonRes);
+				} else if(action.equals("exit")) {
+					break; // finally can die in peace
+				} else {
+					// invalid action, should not receive
+				}
 				
 			}
 			
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
+	}
+	
+	private void DoAdd(JSONObject jsonInput) {
+		if(currentUser instanceof EditorActor) {
+			String title = jsonInput.getString("title");
+			String content = jsonInput.getString("content");
+			String subtype = jsonInput.getString("subtype");
+			ArrayList<String> toAddArray = new ArrayList<String>();
+			
+			toAddArray.add("title");
+			toAddArray.add(title);
+			toAddArray.add("content");
+			toAddArray.add(content);
+			toAddArray.add("subtype");
+			toAddArray.add(subtype);
+			myMongo.AddItemToCollection(toAddArray, "stiri");
+		}
+	}
+	
+	private void DoGet(JSONObject jsonInput, String need) {
+		String jsonOutput = "fail";
+		if(need.equals("db")) {
+			jsonOutput = myMongo.GetDBCollection("stiri").toString();
+		} else if(need.equals("element")) {
+			String title = jsonInput.getString("title");
+			jsonOutput = myMongo.GetDBItem("title", title, "stiri").toString();
+		}
+		
+		try {
+			output.write(jsonOutput.getBytes("UTF-8"));
+			output.close();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
+	
+	private void DoEdit(JSONObject jsonInput) {
+		if(currentUser instanceof EditorActor) {
+			String title = jsonInput.getString("title");
+			String content = jsonInput.getString("content");
+			ArrayList<String> toChangeInput = new ArrayList<String>();
+			Document doc = new Document();
+			
+			toChangeInput.add("title");
+			toChangeInput.add(title);
+			doc.append("content", content);
+			myMongo.UpdateItemFromCollection(toChangeInput, doc, MongoOperation.SET, "stiri");
+		}
+	}
+	
+	private void DoRemove(JSONObject jsonInput) {
+		if(currentUser instanceof EditorActor) {
+			String title = jsonInput.getString("title");
+			
+			myMongo.RemoveItemFromCollection("title", title, "stiri");
+		}
+	}
+	
+	private void DoSubscribe(JSONObject jsonInput) {
+		
 	}
 	
 }
