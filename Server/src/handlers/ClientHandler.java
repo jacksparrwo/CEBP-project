@@ -36,11 +36,9 @@ class ClientHandler extends Thread {
 		System.out.println("Waiting for reader/editor connection");
 		
 		try {
-			String typeOfConnection;
-			
 			// waiting for editor or reader
 			while(true) {
-				typeOfConnection = IOUtils.toString(input, "UTF-8");
+				String typeOfConnection = IOUtils.toString(input, "UTF-8");
 				
 				if("Editor" == typeOfConnection) {
 					currentUser = new EditorActor();

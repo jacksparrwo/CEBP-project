@@ -3,7 +3,7 @@ import org.json.JSONArray;
 import database.MongoHandler;
 import handlers.ServerRunner;
 
-public class Main {
+public class MainServer {
 
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub

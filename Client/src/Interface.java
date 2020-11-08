@@ -19,26 +19,11 @@ import database.MongoHandler;
 
 public class Interface {
 
-	private JFrame frame;
+	public JFrame frame;
 	private JTextField txtNewsFeed;
 	private JTextField textFieldcated;
 	private JTextField txtY;
 	JList whatYouSubbed;
-
-	public static void main(String[] args) {
-		
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					Interface window = new Interface();
-					window.frame.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}
-
 	
 	public Interface() {
 		initialize();
