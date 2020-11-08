@@ -8,7 +8,6 @@ import java.util.concurrent.ConcurrentMap;
 public class ServerRunner {
 	
 	private static ServerRunner serverRunnerInstance = null;
-	private static ConcurrentMap<Integer, ClientHandler> clientMapList = new ConcurrentHashMap<Integer, ClientHandler>();
 	
 	private ServerRunner() {
 		// not getting here boy
@@ -16,7 +15,7 @@ public class ServerRunner {
 	
 	public void Run() {
 		try {
-			ServerSocket serverSocket = new ServerSocket(5000);
+			ServerSocket serverSocket = new ServerSocket(5000); // let it run
 			
 			// server started and waiting for connections
 			while(true) {
@@ -25,7 +24,6 @@ public class ServerRunner {
 				
 				// keep track of connections
 				ClientHandler client = new ClientHandler(socket);
-				clientMapList.put(socket.hashCode(), client);
 				
 				// start the client handler (thread)
 				client.start();

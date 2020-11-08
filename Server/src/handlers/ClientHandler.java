@@ -9,7 +9,6 @@ import java.util.ArrayList;
 
 import org.apache.commons.io.IOUtils;
 import org.bson.Document;
-import org.json.JSONArray;
 import org.json.JSONObject;
 
 import actors.EditorActor;
@@ -115,7 +114,7 @@ class ClientHandler extends Thread {
 		
 		try {
 			output.write(jsonOutput.getBytes("UTF-8"));
-			output.close();
+			//output.close();
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
