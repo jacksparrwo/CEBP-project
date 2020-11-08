@@ -13,7 +13,7 @@ import javax.swing.SwingConstants;
 
 import org.json.JSONArray;
 
-import actors.Editor;
+import actors.EditorActor;
 import database.MongoHandler;
 
 
@@ -26,35 +26,6 @@ public class Interface {
 	JList whatYouSubbed;
 
 	public static void main(String[] args) {
-		
-		MongoHandler myMongo = new MongoHandler();
-		//ArrayList<String> s = new ArrayList<String>();
-		//ArrayList<String> s2 = new ArrayList<String>();
-		//s.add("nume");
-		//s.add("peste");
-		//s.add("culoare");
-		//s.add("roz");
-		//s.add("nume");
-		//s.add("peste");
-		//s2.add("maro");
-		//s2.add("verde");
-		//Document doc = new Document("culoare", "verde");
-		//myMongo.AddItemToCollection(s, "prostii");
-		System.out.println(myMongo.GetDBCollection("prostii"));
-		//MongoOperation dd = MongoOperation.SET;
-		//myMongo.UpdateItemFromCollection(s, doc, dd, "prostii");
-		JSONArray elem = new JSONArray();
-		myMongo.CreateDoc(myMongo.GetDBCollection("prostii"));
-		//myMongo.RemoveItemFromCollection("nume", "peste", "prostii");
-		
-		Editor e1=new Editor("Marcel");
-		e1.subToNewsCatergory("divertisment");
-		e1.subToNewsCatergory("cacat");
-		e1.subToNewsCatergory("pisat");
-		e1.subToNewsCatergory("mazga");
-		e1.subToNewsCatergory("apa plata");
-		e1.subToNewsCatergory("cruce");
-		e1.subToNewsCatergory("merge");
 		
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {

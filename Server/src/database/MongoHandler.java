@@ -138,15 +138,15 @@ public class MongoHandler {
 		return doc;
 	}
 	
-	public Document CreateDoc(JSONArray elements) {
-		Document doc = new Document();
+	//public Document CreateDoc(JSONArray elements) {
+		//Document doc = new Document();
 		
-		System.out.println(elements.length());
-		for(int i=0; i < elements.length(); i++) {
-			System.out.println(elements.getJSONObject(i));
-		}
+		//System.out.println(elements.length());
+		//for(int i=0; i < elements.length(); i++) {
+		//	System.out.println(elements.getJSONObject(i));
+		//}
 		
 		
-		return doc;
-	}
+		//return doc;
+	//}
 }
