@@ -94,12 +94,11 @@ public class MongoHandler {
 		} catch(Exception e) {
 			e.printStackTrace();
 		}
-		
+
 		while(cursor.hasNext()) {
 			Document object = cursor.next();
 			JsonWriterSettings writerSettings = JsonWriterSettings.builder().indent(true).build();
 			JSONObject json = new JSONObject(object.toJson(writerSettings));
-			//JSON.ser
 			res.put(json);
 		}
 		
@@ -114,7 +113,7 @@ public class MongoHandler {
 		}
 	}
 	
-	private Document CreateDocument(ArrayList<String> elements) {
+	public Document CreateDocument(ArrayList<String> elements) {
 		Document doc = new Document();
 		Iterator<String> it = elements.iterator();
 		String key = null, value = null;
@@ -134,6 +133,17 @@ public class MongoHandler {
 			if(gotBoth) {
 				doc.append(key, value);
 			}
+		}
+		
+		return doc;
+	}
+	
+	public Document CreateDoc(JSONArray elements) {
+		Document doc = new Document();
+		
+		System.out.println(elements.length());
+		for(int i=0; i < elements.length(); i++) {
+			System.out.println(elements.getJSONObject(i));
 		}
 		
 		

@@ -7,13 +7,14 @@ import javax.swing.JDesktopPane;
 import javax.swing.JFrame;
 import javax.swing.JList;
 import javax.swing.JScrollPane;
-import javax.swing.JTextArea;
 import javax.swing.JTextField;
-import javax.swing.ListModel;
 import javax.swing.ScrollPaneConstants;
 import javax.swing.SwingConstants;
-import java.util.ArrayList;
+
+import org.json.JSONArray;
+
 import actors.Editor;
+import database.MongoHandler;
 
 
 public class Interface {
@@ -26,7 +27,7 @@ public class Interface {
 
 	public static void main(String[] args) {
 		
-		//MongoHandler myMongo = new MongoHandler();
+		MongoHandler myMongo = new MongoHandler();
 		//ArrayList<String> s = new ArrayList<String>();
 		//ArrayList<String> s2 = new ArrayList<String>();
 		//s.add("nume");
@@ -39,10 +40,11 @@ public class Interface {
 		//s2.add("verde");
 		//Document doc = new Document("culoare", "verde");
 		//myMongo.AddItemToCollection(s, "prostii");
-		//System.out.println(myMongo.GetDBCollection("prostii"));
+		System.out.println(myMongo.GetDBCollection("prostii"));
 		//MongoOperation dd = MongoOperation.SET;
 		//myMongo.UpdateItemFromCollection(s, doc, dd, "prostii");
-		
+		JSONArray elem = new JSONArray();
+		myMongo.CreateDoc(myMongo.GetDBCollection("prostii"));
 		//myMongo.RemoveItemFromCollection("nume", "peste", "prostii");
 		
 		Editor e1=new Editor("Marcel");
