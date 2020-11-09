@@ -6,7 +6,6 @@ public class EditorActor implements User  {
 	
 	private static final String userType = "Editor";
 	private String name;
-	private static String category;
 	private ArrayList<String> subscriptionCategoryList = new ArrayList<String>();
 
 

@@ -1,10 +1,20 @@
 package handlers;
 
+import java.io.BufferedInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.io.UnsupportedEncodingException;
 import java.net.Socket;
 import java.net.UnknownHostException;
+import java.util.ArrayList;
+import java.util.Iterator;
+
+import org.apache.commons.io.IOUtils;
+import org.bson.Document;
+import org.bson.json.JsonWriterSettings;
+import org.json.JSONArray;
+import org.json.JSONObject;
 
 public class InterfaceHandler {
 	
@@ -12,13 +22,13 @@ public class InterfaceHandler {
 	private Socket socket;
 	private InputStream input;
 	private OutputStream output;
-	private boolean exitStatus = false;
-	private boolean receiveStatus = false;
-	private boolean sendStatus = false;
+	private JSONObject json;
 	
 	private InterfaceHandler() {
 		try {
 			this.socket = new Socket("localhost", 5000);
+			input = new BufferedInputStream(socket.getInputStream());
+			output = socket.getOutputStream();
 		} catch (UnknownHostException e) {
 			e.printStackTrace();
 		} catch (IOException e) {
@@ -34,37 +44,55 @@ public class InterfaceHandler {
 		return iHandler;
 	}
 	
-	public void Run() {
-		while(false == exitStatus) {
-			DoReceive();
-			DoSend();
+	public JSONArray DoReceive() {
+		JSONArray res = new JSONArray();
+		
+		try {
+			String rawInput = IOUtils.toString(input, "UTF-8");
+			res = new JSONArray(rawInput);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		
+		return res;
+	}
+	
+	public void DoSend() {
+		try {
+			output.write(json.toString().getBytes("UTF-8"));
+			//output.close();
+		} catch (UnsupportedEncodingException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
 		}
 	}
 	
-	private void DoReceive() {
-		if(true == receiveStatus) {
-			new InterfaceReceive(socket).start();
-			receiveStatus = false;
+	public void PrepareJSON(ArrayList<String> toSend) {
+		Document doc = new Document();
+		Iterator<String> it = toSend.iterator();
+		String key = null, val = null;
+		int crtCnt = 0;
+		boolean gotBoth = false;
+		
+		while(it.hasNext()) {
+			if(0 == (crtCnt % 2)) {
+				key = it.next();
+				gotBoth = false;
+			} else {
+				val = it.next();
+				gotBoth = true;
+			}
+			
+			if(gotBoth) {
+				doc.append(key, val);
+			}
+			
+			crtCnt++;
 		}
-	}
-	
-	private void DoSend() {
-		if(true == sendStatus) {
-			new InterfaceSend(socket).start();
-			sendStatus = false;
-		}
-	}
-	
-	public void SetReceive() {
-		receiveStatus = true;
-	}
-	
-	public void SetSend() {
-		sendStatus = true;
-	}
-	
-	public void SetExit() {
-		exitStatus = true;
+		
+		JsonWriterSettings writerSettings = JsonWriterSettings.builder().indent(true).build();
+		json = new JSONObject(doc.toJson(writerSettings));
 	}
 	
 }
