@@ -7,8 +7,8 @@ public class MainClient {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					Interface window = new Interface();
-					window.frame.setVisible(true);
+					CheckInterface window = new CheckInterface();
+					window.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
