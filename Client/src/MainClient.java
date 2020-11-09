@@ -1,4 +1,7 @@
 import java.awt.EventQueue;
+import java.util.ArrayList;
+
+import handlers.InterfaceHandler;
 
 public class MainClient {
 	
@@ -9,6 +12,8 @@ public class MainClient {
 				try {
 					CheckInterface window = new CheckInterface();
 					window.setVisible(true);
+					InterfaceHandler ih = InterfaceHandler.GetInstance();
+					ArrayList<String> s = new ArrayList<>();
 				} catch (Exception e) {
 					e.printStackTrace();
 				}

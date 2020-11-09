@@ -1,4 +1,5 @@
 import java.awt.EventQueue;
+import handlers.InterfaceHandler;
 import java.awt.FlowLayout;
 import java.awt.BorderLayout;
 import java.awt.Color;
@@ -17,11 +18,14 @@ import org.json.JSONArray;
 
 import actors.EditorActor;
 import database.MongoHandler;
+import handlers.InterfaceHandler;
+
 import javax.swing.JButton;
 
 import javax.swing.JFrame;
 import javax.swing.*;
-import java.awt.event.*;  
+import java.awt.event.*;
+import java.util.ArrayList;  
 public class CheckInterface extends JFrame{
 
 	
@@ -48,7 +52,14 @@ public class CheckInterface extends JFrame{
 			public void actionPerformed(ActionEvent e) {
 				EditorInterface ei=new EditorInterface() ;
 				ei.setVisible(true);
+				InterfaceHandler ih = InterfaceHandler.GetInstance();
+				ArrayList<String> s = new ArrayList<>();
+				s.add("client");
+				s.add("Editor");
+				ih.PrepareJSON(s);
+				ih.DoSend();
 				dispose();
+				System.out.println("test editor");
 			}
 			
 	    	
@@ -63,7 +74,14 @@ public class CheckInterface extends JFrame{
 	 			public void actionPerformed(ActionEvent e) {
 	 				ReaderInterface ri=new ReaderInterface() ;
 	 				ri.setVisible(true);
+	 				InterfaceHandler ih = InterfaceHandler.GetInstance();
+					ArrayList<String> s = new ArrayList<>();
+					s.add("client");
+					s.add("Reader");
+					ih.PrepareJSON(s);
+					ih.DoSend();
 	 				dispose();
+	 				System.out.println("test reader");
 	 			}
 	 			
 	 	    	
