@@ -41,44 +41,51 @@ class ClientHandler extends Thread {
 		try {
 			// waiting for editor or reader
 			while(true) {
-				String typeOfConnection = IOUtils.toString(input, "UTF-8");
-				JSONObject myJsonRes = new JSONObject(typeOfConnection);
-				String myRes = myJsonRes.getString("client");
+				if(0 < input.available()) {
+					byte[] rawInput = new byte[input.available()];
+					input.read(rawInput);
+					String rawStringInput = new String(IOUtils.toString(rawInput));
+					JSONObject myJsonRes = new JSONObject(rawStringInput);
+					String myRes = myJsonRes.getString("client");
 				
-				if(myRes.equals("Editor")) {
-					currentUser = new EditorActor();
-					break;
-				} else if(myRes.equals("Reader")) {
-					currentUser = new ReaderActor();
-					break;
-				} else {
-					// nope waiting for connection type
+					if(myRes.equals("Editor")) {
+						currentUser = new EditorActor();
+						break;
+					} else if(myRes.equals("Reader")) {
+						currentUser = new ReaderActor();
+						break;
+					} else {
+						// nope waiting for connection type
+					}
 				}
 			}
 			
 			while(true) {
-				String rawInput = IOUtils.toString(input, "UTF-8");
-				JSONObject myJsonRes = new JSONObject(rawInput);
-				String action = myJsonRes.getString("action");
-				
-				if(action.equals("add")) {
-					DoAdd(myJsonRes);
-				} else if(action.equals("getelement")) {
-					DoGet(myJsonRes, "element");
-				} else if(action.equals("getdb")) {
-					DoGet(myJsonRes, "db");
-				} else if(action.equals("edit")) {
-					DoEdit(myJsonRes);
-				} else if(action.equals("remove")) {
-					DoRemove(myJsonRes);
-				} else if(action.equals("subscribe")) {
-					DoSubscribe(myJsonRes);
-				} else if(action.equals("exit")) {
-					break; // finally can die in peace
-				} else {
-					// invalid action, should not receive
+				if(0 < input.available()) {
+					byte[] rawInput = new byte[input.available()];
+					input.read(rawInput);
+					String rawStringInput = new String(IOUtils.toString(rawInput));
+					JSONObject myJsonRes = new JSONObject(rawStringInput);
+					String action = myJsonRes.getString("action");
+					
+					if(action.equals("add")) {
+						DoAdd(myJsonRes);
+					} else if(action.equals("getelement")) {
+						DoGet(myJsonRes, "element");
+					} else if(action.equals("getdb")) {
+						DoGet(myJsonRes, "db");
+					} else if(action.equals("edit")) {
+						DoEdit(myJsonRes);
+					} else if(action.equals("remove")) {
+						DoRemove(myJsonRes);
+					} else if(action.equals("subscribe")) {
+						DoSubscribe(myJsonRes);
+					} else if(action.equals("exit")) {
+						break; // finally can die in peace
+					} else {
+						// invalid action, should not receive
+					}
 				}
-				
 			}
 			
 		} catch (IOException e) {
@@ -105,6 +112,7 @@ class ClientHandler extends Thread {
 	
 	private void DoGet(JSONObject jsonInput, String need) {
 		String jsonOutput = "fail";
+		System.out.println("getting");
 		if(need.equals("db")) {
 			jsonOutput = myMongo.GetDBCollection("stiri").toString();
 		} else if(need.equals("element")) {
@@ -114,7 +122,7 @@ class ClientHandler extends Thread {
 		
 		try {
 			output.write(jsonOutput.getBytes("UTF-8"));
-			//output.close();
+			output.flush();
 		} catch (IOException e) {
 			e.printStackTrace();
 		}

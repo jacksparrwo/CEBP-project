@@ -9,6 +9,7 @@ import java.net.Socket;
 import java.net.UnknownHostException;
 import java.util.ArrayList;
 import java.util.Iterator;
+import java.util.concurrent.TimeUnit;
 
 import org.apache.commons.io.IOUtils;
 import org.bson.Document;
@@ -39,6 +40,13 @@ public class InterfaceHandler {
 	public static InterfaceHandler GetInstance() {
 		if(null == iHandler) {
 			iHandler = new InterfaceHandler();
+			
+			// wait a bit 
+			try {
+				TimeUnit.SECONDS.sleep(2);
+			} catch (InterruptedException e) {
+				e.printStackTrace();
+			}
 		}
 		
 		return iHandler;
@@ -48,8 +56,15 @@ public class InterfaceHandler {
 		JSONArray res = new JSONArray();
 		
 		try {
-			String rawInput = IOUtils.toString(input, "UTF-8");
-			res = new JSONArray(rawInput);
+			while(true) {
+				if(0 < input.available()) {
+					byte[] rawInput = new byte[input.available()];
+					input.read(rawInput);
+					String rawStringInput = new String(IOUtils.toString(rawInput));
+					res = new JSONArray(rawStringInput);
+					break;
+				}
+			}
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
@@ -60,7 +75,7 @@ public class InterfaceHandler {
 	public void DoSend() {
 		try {
 			output.write(json.toString().getBytes("UTF-8"));
-			//output.close();
+			output.flush();
 		} catch (UnsupportedEncodingException e) {
 			e.printStackTrace();
 		} catch (IOException e) {
