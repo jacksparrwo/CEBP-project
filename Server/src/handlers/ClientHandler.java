@@ -93,7 +93,7 @@ class ClientHandler extends Thread {
 		}
 	}
 	
-	private void DoAdd(JSONObject jsonInput) {
+	private synchronized void DoAdd(JSONObject jsonInput) {
 		if(currentUser instanceof EditorActor) {
 			String title = jsonInput.getString("title");
 			String content = jsonInput.getString("content");
@@ -128,7 +128,7 @@ class ClientHandler extends Thread {
 		}
 	}
 	
-	private void DoEdit(JSONObject jsonInput) {
+	private synchronized void DoEdit(JSONObject jsonInput) {
 		if(currentUser instanceof EditorActor) {
 			String title = jsonInput.getString("title");
 			String content = jsonInput.getString("content");
@@ -142,7 +142,7 @@ class ClientHandler extends Thread {
 		}
 	}
 	
-	private void DoRemove(JSONObject jsonInput) {
+	private synchronized void DoRemove(JSONObject jsonInput) {
 		if(currentUser instanceof EditorActor) {
 			String title = jsonInput.getString("title");
 			
