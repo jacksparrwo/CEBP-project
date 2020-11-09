@@ -41,6 +41,7 @@ public class EditorInterface extends JFrame{
 		
 
 		JList newsFeed = new JList();
+		newsFeed.setBounds(46, 46, 361, 504);
 		
 		newsFeed.setVisibleRowCount(3);
 		newsFeed.setBackground(Color.PINK);
@@ -49,6 +50,7 @@ public class EditorInterface extends JFrame{
 
 		
 		txtNewsFeed = new JTextField();
+		txtNewsFeed.setBounds(46, 11, 361, 36);
 		txtNewsFeed.setBackground(Color.YELLOW);
 		txtNewsFeed.setHorizontalAlignment(SwingConstants.CENTER);
 		txtNewsFeed.setText("News Feed");
@@ -58,6 +60,7 @@ public class EditorInterface extends JFrame{
 	
 		//ADD BUTTON
 		JButton addB = new JButton("ADD");
+		addB.setBounds(413, 80, 74, 23);
 		addB.setBackground(Color.GREEN);
 		addB.addActionListener(new ActionListener(){ 
 		    	
@@ -85,6 +88,7 @@ public class EditorInterface extends JFrame{
 		 
 		//DELETE BUTTON
 		JButton deleteB = new JButton("DELETE");
+		deleteB.setBounds(413, 114, 74, 23);
 		deleteB.setBackground(Color.RED);
 		deleteB.addActionListener(new ActionListener(){ 
 		    	
@@ -108,6 +112,7 @@ public class EditorInterface extends JFrame{
 		 
 		//EDIT BUTTON
 		JButton editB = new JButton("EDIT");
+		editB.setBounds(413, 151, 74, 23);
 		editB.setBackground(Color.MAGENTA);
 		editB.addActionListener(new ActionListener(){ 
 	    	
@@ -133,18 +138,23 @@ public class EditorInterface extends JFrame{
 		
 		
 		textField = new JTextField();
+		textField.setBounds(505, 46, 245, 128);
 		textField.setColumns(10);
 		
 		textField_1 = new JTextField();
+		textField_1.setBounds(505, 20, 245, 20);
 		textField_1.setColumns(10);
 		
 		JLabel lblNewLabel = new JLabel("Title");
+		lblNewLabel.setBounds(413, 23, 92, 14);
 		lblNewLabel.setHorizontalAlignment(SwingConstants.CENTER);
 		
 		JLabel lblNewLabel_1 = new JLabel("Content");
+		lblNewLabel_1.setBounds(448, 47, 39, 14);
 		lblNewLabel_1.setHorizontalAlignment(SwingConstants.CENTER);
 		
 		JButton getbtn = new JButton("GET");
+		getbtn.setBounds(413, 194, 337, 23);
 		getbtn.setBackground(Color.GRAY);
 		getbtn.addActionListener(new ActionListener(){ 
 	    	
@@ -162,63 +172,17 @@ public class EditorInterface extends JFrame{
 			
 	    	
 	    });
-		
-		GroupLayout gl_desktopPane = new GroupLayout(desktopPane);
-		gl_desktopPane.setHorizontalGroup(
-			gl_desktopPane.createParallelGroup(Alignment.LEADING)
-				.addGroup(gl_desktopPane.createSequentialGroup()
-					.addGap(46)
-					.addGroup(gl_desktopPane.createParallelGroup(Alignment.LEADING)
-						.addComponent(newsFeed, GroupLayout.PREFERRED_SIZE, 361, GroupLayout.PREFERRED_SIZE)
-						.addComponent(txtNewsFeed, GroupLayout.PREFERRED_SIZE, 361, GroupLayout.PREFERRED_SIZE))
-					.addPreferredGap(ComponentPlacement.RELATED)
-					.addGroup(gl_desktopPane.createParallelGroup(Alignment.LEADING, false)
-						.addGroup(gl_desktopPane.createSequentialGroup()
-							.addGroup(gl_desktopPane.createParallelGroup(Alignment.TRAILING)
-								.addGroup(gl_desktopPane.createSequentialGroup()
-									.addGroup(gl_desktopPane.createParallelGroup(Alignment.LEADING)
-										.addComponent(editB, GroupLayout.PREFERRED_SIZE, 74, GroupLayout.PREFERRED_SIZE)
-										.addGroup(gl_desktopPane.createParallelGroup(Alignment.TRAILING)
-											.addComponent(deleteB, GroupLayout.PREFERRED_SIZE, 74, GroupLayout.PREFERRED_SIZE)
-											.addComponent(addB, Alignment.LEADING, GroupLayout.PREFERRED_SIZE, 74, GroupLayout.PREFERRED_SIZE)
-											.addComponent(lblNewLabel_1)))
-									.addGap(18))
-								.addComponent(lblNewLabel, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-							.addGroup(gl_desktopPane.createParallelGroup(Alignment.LEADING, false)
-								.addComponent(textField_1)
-								.addComponent(textField, GroupLayout.DEFAULT_SIZE, 245, Short.MAX_VALUE)))
-						.addComponent(getbtn, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-					.addContainerGap(44, Short.MAX_VALUE))
-		);
-		gl_desktopPane.setVerticalGroup(
-			gl_desktopPane.createParallelGroup(Alignment.LEADING)
-				.addGroup(gl_desktopPane.createSequentialGroup()
-					.addGap(11)
-					.addGroup(gl_desktopPane.createParallelGroup(Alignment.LEADING)
-						.addGroup(gl_desktopPane.createSequentialGroup()
-							.addGap(9)
-							.addGroup(gl_desktopPane.createParallelGroup(Alignment.BASELINE)
-								.addComponent(textField_1, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-								.addComponent(lblNewLabel))
-							.addPreferredGap(ComponentPlacement.RELATED)
-							.addGroup(gl_desktopPane.createParallelGroup(Alignment.BASELINE)
-								.addComponent(newsFeed, GroupLayout.PREFERRED_SIZE, 504, GroupLayout.PREFERRED_SIZE)
-								.addGroup(gl_desktopPane.createSequentialGroup()
-									.addGroup(gl_desktopPane.createParallelGroup(Alignment.LEADING, false)
-										.addGroup(gl_desktopPane.createSequentialGroup()
-											.addGap(34)
-											.addComponent(addB)
-											.addGap(11)
-											.addComponent(deleteB)
-											.addPreferredGap(ComponentPlacement.RELATED, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-											.addComponent(editB))
-										.addComponent(textField, GroupLayout.PREFERRED_SIZE, 128, GroupLayout.PREFERRED_SIZE))
-									.addGap(20)
-									.addComponent(getbtn))
-								.addComponent(lblNewLabel_1)))
-						.addComponent(txtNewsFeed, GroupLayout.PREFERRED_SIZE, 36, GroupLayout.PREFERRED_SIZE)))
-		);
-		desktopPane.setLayout(gl_desktopPane);
+		desktopPane.setLayout(null);
+		desktopPane.add(newsFeed);
+		desktopPane.add(txtNewsFeed);
+		desktopPane.add(editB);
+		desktopPane.add(deleteB);
+		desktopPane.add(addB);
+		desktopPane.add(lblNewLabel_1);
+		desktopPane.add(lblNewLabel);
+		desktopPane.add(textField_1);
+		desktopPane.add(textField);
+		desktopPane.add(getbtn);
 		
 		
 		frame.setVisible(true);
