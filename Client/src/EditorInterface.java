@@ -1,32 +1,22 @@
-import java.awt.EventQueue;
-import java.awt.FlowLayout;
-
-import javax.swing.JFrame;
 import java.awt.BorderLayout;
 import java.awt.Color;
-import java.awt.EventQueue;
-import java.awt.SystemColor;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
 
+import javax.swing.GroupLayout;
+import javax.swing.GroupLayout.Alignment;
+import javax.swing.JButton;
 import javax.swing.JDesktopPane;
 import javax.swing.JFrame;
+import javax.swing.JLabel;
 import javax.swing.JList;
-import javax.swing.JScrollPane;
 import javax.swing.JTextField;
-import javax.swing.ScrollPaneConstants;
+import javax.swing.LayoutStyle.ComponentPlacement;
 import javax.swing.SwingConstants;
 
 import org.json.JSONArray;
 
-import actors.EditorActor;
-import database.MongoHandler;
-import javax.swing.JButton;
-import javax.swing.JLabel;
-import javax.swing.GroupLayout;
-import javax.swing.GroupLayout.Alignment;
-import javax.swing.LayoutStyle.ComponentPlacement;
 import handlers.InterfaceHandler;
 
 public class EditorInterface extends JFrame{
@@ -164,11 +154,10 @@ public class EditorInterface extends JFrame{
 				ArrayList<String> s = new ArrayList<>();
 				s.add("action");
 				s.add("getdb");
-				s.add("db");
-				s.add("stiri");
 				ih.PrepareJSON(s);
-				ih.DoReceive();
-				System.out.println("test get");
+				ih.DoSend();
+				JSONArray ar = ih.DoReceive();
+				System.out.println(ar);
 			}
 			
 	    	
