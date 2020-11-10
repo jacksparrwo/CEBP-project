@@ -59,7 +59,7 @@ public class CheckInterface extends JFrame{
 				ih.PrepareJSON(s);
 				ih.DoSend();
 				dispose();
-				System.out.println("test editor");
+				System.out.println("YOU ARE AN EDITOR");
 			}
 			
 	    	
@@ -81,7 +81,7 @@ public class CheckInterface extends JFrame{
 					ih.PrepareJSON(s);
 					ih.DoSend();
 	 				dispose();
-	 				System.out.println("test reader");
+	 				System.out.println("YOU ARE A READER");
 	 			}
 	 			
 	 	    	

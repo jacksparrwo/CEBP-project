@@ -57,10 +57,20 @@ public class EditorInterface extends JFrame{
 		txtNewsFeed.setColumns(10);
 		txtNewsFeed.setEditable(false);
 		
+		
+		textField = new JTextField();
+		textField.setBounds(505, 46, 245, 128);
+		textField.setColumns(10);
+		
+		textField_1 = new JTextField();
+		textField_1.setBounds(505, 20, 245, 20);
+		textField_1.setColumns(10);
+		
+		
 	
 		//ADD BUTTON
 		JButton addB = new JButton("ADD");
-		addB.setBounds(413, 80, 74, 23);
+		addB.setBounds(413, 80, 81, 23);
 		addB.setBackground(Color.GREEN);
 		addB.addActionListener(new ActionListener(){ 
 		    	
@@ -68,17 +78,20 @@ public class EditorInterface extends JFrame{
 				public void actionPerformed(ActionEvent e) {
 					InterfaceHandler ih = InterfaceHandler.GetInstance();
 					ArrayList<String> s = new ArrayList<>();
+					
 					s.add("action");
 					s.add("add");
 					s.add("title");
-					s.add("Asta e un titlu de stire");
+					s.add(textField_1.getText());
+					System.out.println("Succesfully added title: "+textField_1.getText());
 					s.add("content");
-					s.add("This is the content of the news");
+					s.add(textField.getText());
+					System.out.println("Succesfully added content: "+textField.getText());
 					s.add("subtype");
 					s.add("This is the subtype");
 					ih.PrepareJSON(s);
 					ih.DoSend();
-					System.out.println("test add");
+					System.out.println("You succesfully added the news");
 					
 				}
 				
@@ -88,7 +101,7 @@ public class EditorInterface extends JFrame{
 		 
 		//DELETE BUTTON
 		JButton deleteB = new JButton("DELETE");
-		deleteB.setBounds(413, 114, 74, 23);
+		deleteB.setBounds(413, 114, 81, 23);
 		deleteB.setBackground(Color.RED);
 		deleteB.addActionListener(new ActionListener(){ 
 		    	
@@ -99,10 +112,11 @@ public class EditorInterface extends JFrame{
 					s.add("action");
 					s.add("remove");
 					s.add("title");
-					s.add("Asta e un titlu de stire");
+					s.add(textField_1.getText());
+					System.out.println("Succesfully removed the news with the title: "+textField_1.getText());
 					ih.PrepareJSON(s);
 					ih.DoSend();
-					System.out.println("test delete");
+					System.out.println("You succesfully removed the news");
 					
 				}
 				
@@ -112,7 +126,7 @@ public class EditorInterface extends JFrame{
 		 
 		//EDIT BUTTON
 		JButton editB = new JButton("EDIT");
-		editB.setBounds(413, 151, 74, 23);
+		editB.setBounds(413, 151, 81, 23);
 		editB.setBackground(Color.MAGENTA);
 		editB.addActionListener(new ActionListener(){ 
 	    	
@@ -123,12 +137,14 @@ public class EditorInterface extends JFrame{
 				s.add("action");
 				s.add("edit");
 				s.add("title");
-				s.add("Asta e un titlu de stire editat");
+				s.add(textField_1.getText());
+				System.out.println("Succesfully edited title: "+textField_1.getText());
 				s.add("content");
-				s.add("This is the edited content of the news");
+				s.add(textField.getText());
+				System.out.println("Succesfully edited content: "+textField.getText());
 				ih.PrepareJSON(s);
 				ih.DoSend();
-				System.out.println("test edit");
+				System.out.println("You succesfully edited the news");
 				
 			}
 			
@@ -138,11 +154,11 @@ public class EditorInterface extends JFrame{
 		
 		
 		textField = new JTextField();
-		textField.setBounds(505, 46, 245, 128);
+		textField.setBounds(515, 46, 235, 128);
 		textField.setColumns(10);
 		
 		textField_1 = new JTextField();
-		textField_1.setBounds(505, 20, 245, 20);
+		textField_1.setBounds(515, 20, 235, 20);
 		textField_1.setColumns(10);
 		
 		JLabel lblNewLabel = new JLabel("Title");
@@ -150,7 +166,7 @@ public class EditorInterface extends JFrame{
 		lblNewLabel.setHorizontalAlignment(SwingConstants.CENTER);
 		
 		JLabel lblNewLabel_1 = new JLabel("Content");
-		lblNewLabel_1.setBounds(448, 47, 39, 14);
+		lblNewLabel_1.setBounds(423, 47, 64, 14);
 		lblNewLabel_1.setHorizontalAlignment(SwingConstants.CENTER);
 		
 		JButton getbtn = new JButton("GET");
@@ -189,5 +205,6 @@ public class EditorInterface extends JFrame{
 
 	
 	}
+	
 }
 

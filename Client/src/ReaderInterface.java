@@ -76,6 +76,8 @@ public class ReaderInterface extends JFrame{
 					ArrayList<String> s = new ArrayList<>();
 					s.add("action");
 					s.add("subscribe");
+				
+					System.out.println("You subscribed to the news");
 					// have to be implemeted
 					ih.PrepareJSON(s);
 					ih.DoSend();
